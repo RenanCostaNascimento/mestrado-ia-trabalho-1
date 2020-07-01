@@ -20,10 +20,14 @@ class Problem1:
         return np.random.uniform(self.interval[0], self.interval[1])
 
     def crossover(self, parents):
-        alfa = np.random.normal(0.0, 0.1)
+        p1 = parents[0].state
+        p2 = parents[1].state
 
-        state1 = (parents[0].value * alfa) + parents[1].value * (1 - alfa)
-        state2 = (parents[1].value * alfa) + parents[0].value * (1 - alfa)
+        alfa1 = np.random.normal(0.0, 0.1)
+        state1 = (p1 * alfa1) + p2 * (1 - alfa1)
+
+        alfa2 = np.random.normal(0.0, 0.1)
+        state2 = (p2 * alfa2) + p1 * (1 - alfa2)
 
         return [state1, state2]
 
@@ -62,9 +66,21 @@ class Problem2:
         return np.random.uniform(self.interval[0], self.interval[1])
 
     def crossover(self, parents):
-        alfa = np.random.normal(0.0, 0.1)
+        x1 = parents[0].state.get("x")
+        y1 = parents[0].state.get("y")
+        x2 = parents[1].state.get("x")
+        y2 = parents[1].state.get("y")
 
-        state2 = (parents[0].value * alfa) + parents[1].value * (1 - alfa)
-        state2 = (parents[1].value * alfa) + parents[0].value * (1 - alfa)
+        alfa1 = np.random.normal(0.0, 0.1)
+        state1 = {
+            "x": (x1 * alfa1) + x2 * (1 - alfa1),
+            "y": (y1 * alfa1) + y2 * (1 - alfa1),
+        }
 
-        return [state2, state2]
+        alfa2 = np.random.normal(0.0, 0.1)
+        state2 = {
+            "x": (x2 * alfa2) + x1 * (1 - alfa2),
+            "y": (y2 * alfa2) + y1 * (1 - alfa2),
+        }
+
+        return [state1, state2]
