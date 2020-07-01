@@ -1,5 +1,5 @@
 from charts import plotChart
-from problems import Problem1
+from problems import Problem1, Problem2
 from solutions import hillClimbing, randomRestartHillClimbing, simulatedAnneling, geneticAlgorithm
 
 
@@ -13,8 +13,10 @@ def runProblem1():
 
 
     geneticAlgorithmOutput = geneticAlgorithm(problem1)
+    
+    
     x = list(range(1, 51))
-    y = geneticAlgorithmOutput
+    y = geneticAlgorithmOutput.get("allValues")
 
     plotChart(x, y)
 
@@ -38,3 +40,12 @@ def runProblem2():
     plotChart(x, y)
 
 # runProblem2()
+
+class teste:
+    def __init__(self):
+        self.x = 10
+        self.y = 20
+
+
+def populationMap(teste):
+    return teste.x

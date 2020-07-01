@@ -132,6 +132,8 @@ def geneticAlgorithm(problem):
     mutationChance = 0.3
     population = []
 
+    allValues = []
+
     for individual in range(populationSize):
         population.append(Solution(problem))
 
@@ -147,11 +149,17 @@ def geneticAlgorithm(problem):
                 mutation(Solution(problem, states[1]), mutationChance))
 
         population = currentPopulation
-        print("geracao ", generation + 1)
-        for i in population:
-            print(i)
+        allValues.append(list(map(populationMap, currentPopulation)))
+        # print("geracao ", generation + 1)
+        # for i in population:
+        #     print(i)
 
-    return population
+    output = {
+        "solution": population,
+        "allValues": allValues
+    }
+
+    return output
 
 
 def chooseParents(population):
@@ -174,6 +182,10 @@ def mutation(individual, mutationChance):
         individual.setState(individual.state + np.random.normal(0.0, 0.1))
 
     return individual
+
+
+def populationMap(solution):
+    return solution.value
 
 
 # testCooling(90, 100)
