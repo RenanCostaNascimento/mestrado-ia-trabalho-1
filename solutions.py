@@ -142,11 +142,17 @@ def geneticAlgorithm(problem):
 
         for individual in range(0, populationSize, 2):
             parents = chooseParents(population)
-            states = problem.crossover(parents)
+            childrenStates = problem.crossover(parents)
             currentPopulation.append(
-                mutation(Solution(problem, states[0]), mutationChance))
+                Solution(
+                    problem, problem.mutation(childrenStates[0])
+                )
+            )
             currentPopulation.append(
-                mutation(Solution(problem, states[1]), mutationChance))
+                Solution(
+                    problem, problem.mutation(childrenStates[1])
+                )
+            )
 
         population = currentPopulation
         allValues.append(list(map(populationMap, currentPopulation)))
@@ -155,8 +161,10 @@ def geneticAlgorithm(problem):
         #     print(i)
 
     output = {
+        # TODO retornar apenas o melhor da população
         "solution": population,
         "allValues": allValues
+        # TODO salvar todas as melhores soluções
     }
 
     return output

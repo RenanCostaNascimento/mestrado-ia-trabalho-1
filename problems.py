@@ -6,6 +6,7 @@ from math import sin, pi, pow, cos, sqrt
 class Problem1:
     def __init__(self):
         self.interval = [-100, 100]
+        self.mutationChance = 0.3
 
     def objectiveFunction(self, x):
         return (pow(x, 2) / 100) + (10 * sin(x - (pi / 2)))
@@ -32,10 +33,17 @@ class Problem1:
 
         return [state1, state2]
 
+    def mutation(self, child):
+        if random.random() > self.mutationChance:
+            return self.getNextNeighbor(child)
+
+        return child
+
 
 class Problem2:
     def __init__(self):
         self.interval = [-5.12, 5.12]
+        self.mutationChance = 0.3
 
     def objectiveFunction(self, value):
         x = value.get("x")
@@ -86,10 +94,17 @@ class Problem2:
 
         return [state1, state2]
 
+    def mutation(self, child):
+        if random.random() > self.mutationChance:
+            return self.getNextNeighbor(child)
+
+        return child
+
 
 class Problem3:
     def __init__(self, cities):
         self.cities = cities
+        self.mutationChance = 0.15
 
     def objectiveFunction(self, cities):
         citiesCopy = cities.copy()
@@ -133,3 +148,9 @@ class Problem3:
             index += 1
 
         return genes2 + genes1
+
+    def mutation(self, child):
+        if random.random() > self.mutationChance:
+            return self.getNextNeighbor(child)
+
+        return child
