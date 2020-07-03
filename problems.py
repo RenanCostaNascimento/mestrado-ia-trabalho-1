@@ -1,5 +1,6 @@
+import random
 import numpy as np
-from math import sin, pi, pow, cos
+from math import sin, pi, pow, cos, sqrt
 
 
 class Problem1:
@@ -84,3 +85,36 @@ class Problem2:
         }
 
         return [state1, state2]
+
+
+class Problem3:
+    def __init__(self, cities):
+        self.cities = cities
+
+    def objectiveFunction(self, cities):
+        citiesCopy = cities.copy()
+        citiesCopy.append(cities[0])
+        totalCost = 0
+        for index in range(len(citiesCopy) - 1):
+            x1 = citiesCopy[index].get("x")
+            y1 = citiesCopy[index].get("y")
+            x2 = citiesCopy[index + 1].get("x")
+            y2 = citiesCopy[index + 1].get("y")
+            totalCost += sqrt(pow(x2 - x1, 2) + pow(y2 - y1, 2))
+        return totalCost
+
+    def getNextNeighbor(self, cities):
+        city1 = city2 = 0
+        maxRandom = len(cities) - 1
+        while(city1 == city2):
+            city1 = random.randint(0, maxRandom)
+            city2 = random.randint(0, maxRandom)
+
+        citiesCopy = cities.copy()
+        citiesCopy[city1] = cities[city2]
+        citiesCopy[city2] = cities[city1]
+
+        return citiesCopy
+
+    def restart(self):
+        return self.cities
