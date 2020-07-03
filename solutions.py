@@ -38,7 +38,7 @@ def hillClimbing(problem):
         currentState = nextNeighbor
 
     output = {
-        "solution": solution,
+        "solution": solution.value,
         "allValues": allValues,
         "allBestValues": allBestValues
     }
@@ -69,7 +69,7 @@ def randomRestartHillClimbing(problem):
         currentState = nextNeighbor
 
     output = {
-        "solution": solution,
+        "solution": solution.value,
         "allValues": allValues,
         "allBestValues": allBestValues
     }
@@ -104,7 +104,7 @@ def simulatedAnneling(problem):
         temperature = cooling(temperature, 900)
 
     output = {
-        "solution": solution,
+        "solution": solution.value,
         "allValues": allValues,
         "allBestValues": allBestValues
     }
@@ -154,6 +154,8 @@ def geneticAlgorithm(problem):
                 )
             )
 
+        # TODO vai precisar acertar essa parte novamente, a solution retornar o melhor valor
+        # da ultima geração, e não a melhor dentre todas as gerações
         population = currentPopulation
         allValues.append(list(map(
             lambda solution: solution.value,

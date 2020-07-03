@@ -1,24 +1,42 @@
 from charts import plotChart
 from problems import Problem1, Problem2, Problem3
 from solutions import hillClimbing, randomRestartHillClimbing, simulatedAnneling, geneticAlgorithm
+from report import generateComparisonTable
 
 
 def runProblem1():
     problem1 = Problem1()
-    hillClimbingOutput = hillClimbing(problem1)
-    # hillClimbingOutput = randomRestartHillClimbing(problem1)
-    # simulatedAnnelingOutput = simulatedAnneling(problem1)
+    hillClimbingResults = []
+    randomRestartHillClimbingResults = []
+    simulatedAnnelingResults = []
+    geneticAlgorithmResults = []
 
-    x = list(range(1, 1001))
-    y = hillClimbingOutput.get("allBestValues")
+    for execution in range(10):
+        hillClimbingResults.append(hillClimbing(problem1))
+        randomRestartHillClimbingResults.append(randomRestartHillClimbing(problem1))
+        simulatedAnnelingResults.append(simulatedAnneling(problem1))
+        geneticAlgorithmResults.append(geneticAlgorithm(problem1))
 
-    # geneticAlgorithmOutput = geneticAlgorithm(problem1)
+    generateComparisonTable("Hill Climbing", hillClimbingResults)
+    generateComparisonTable("Random Restart Hill Climbing", randomRestartHillClimbingResults)
+    generateComparisonTable("Simulated Anneling", simulatedAnnelingResults)
+    generateComparisonTable("Genetic Algorithm", geneticAlgorithmResults)
+
+
+    # x = list(range(1, 1001))
+    # y = hillClimbingOutput.get("allBestValues")
+
+    
     # x = list(range(1, 51))
     # y = geneticAlgorithmOutput.get("allValues")
 
-    plotChart(x, y)
+    # print("ALL", geneticAlgorithmOutput.get("allValues"))
+    # print("BEST", geneticAlgorithmOutput.get("solution"))
 
-# runProblem1()
+    # plotChart(x, y)
+
+
+runProblem1()
 
 
 def runProblem2():
@@ -59,21 +77,20 @@ def runProblem3():
     citiesFile.close()
     problem3 = Problem3(cities)
 
-
-    hillClimbingOutput = hillClimbing(problem3)
+    # hillClimbingOutput = hillClimbing(problem3)
     # randomRestartHillClimbingOutput = randomRestartHillClimbing(problem3)
     # simulatedAnnelingOutput = simulatedAnneling(problem3)
     # geneticAlgorithmOutput = geneticAlgorithm(problem2)
 
-    x = list(range(1, 1001))
-    y = hillClimbingOutput.get("allBestValues")
-    print(hillClimbingOutput.get("solution").value)
+    # x = list(range(1, 1001))
+    # y = hillClimbingOutput.get("allBestValues")
+    # print(hillClimbingOutput.get("solution").value)
 
     # geneticAlgorithmOutput = geneticAlgorithm(problem2)
     # x = list(range(1, 51))
     # y = geneticAlgorithmOutput
 
-    plotChart(x, y)
+    # plotChart(x, y)
 
 
-runProblem3()
+# runProblem3()
