@@ -118,3 +118,18 @@ class Problem3:
 
     def restart(self):
         return self.cities
+
+    def crossover(self, parents):
+        parentSize = len(parents[0])
+        cutPoint = random.randint(1, parentSize - 2)
+
+        genes1 = parents[0][cutPoint:parentSize]
+        genes2 = []
+        index = 0
+        sizeGenes2 = parentSize - len(genes1)
+        while len(genes2) != sizeGenes2:
+            if parents[1][index] not in genes1:
+                genes2.append(parents[1][index])
+            index += 1
+
+        return genes2 + genes1
