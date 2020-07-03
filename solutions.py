@@ -1,5 +1,6 @@
 import random
 import numpy as np
+from functools import reduce
 
 
 class Solution:
@@ -129,7 +130,6 @@ def testCooling(freezingTime, iterations):
 def geneticAlgorithm(problem):
     populationSize = 20
     generations = 50
-    mutationChance = 0.3
     population = []
 
     allValues = []
@@ -155,14 +155,16 @@ def geneticAlgorithm(problem):
             )
 
         population = currentPopulation
-        allValues.append(list(map(populationMap, currentPopulation)))
-        # print("geracao ", generation + 1)
-        # for i in population:
-        #     print(i)
+        allValues.append(list(map(
+            lambda solution: solution.value,
+            currentPopulation
+        )))
 
     output = {
-        # TODO retornar apenas o melhor da população
-        "solution": population,
+        "solution": reduce(
+            (lambda x, y: x if x < y else y),
+            map(lambda solution: solution.value, population)
+        ),
         "allValues": allValues
         # TODO salvar todas as melhores soluções
     }
@@ -183,18 +185,6 @@ def chooseParents(population):
             parents.append(p2)
 
     return parents
-
-
-def mutation(individual, mutationChance):
-    if random.random() > mutationChance:
-        individual.setState(individual.state + np.random.normal(0.0, 0.1))
-
-    return individual
-
-
-def populationMap(solution):
-    return solution.value
-
 
 # testCooling(90, 100)
 # print()
