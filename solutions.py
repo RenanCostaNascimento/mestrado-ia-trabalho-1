@@ -132,7 +132,7 @@ def geneticAlgorithm(problem):
     generations = 50
     population = []
 
-    allValues = []
+    allValues =[]
 
     for individual in range(populationSize):
         population.append(Solution(problem))
@@ -154,24 +154,31 @@ def geneticAlgorithm(problem):
                 )
             )
 
-        # TODO vai precisar acertar essa parte novamente, a solution retornar o melhor valor
-        # da ultima geração, e não a melhor dentre todas as gerações
         population = currentPopulation
-        allValues.append(list(map(
-            lambda solution: solution.value,
-            currentPopulation
-        )))
+        for solution in currentPopulation:
+            allValues.append(solution.value)
 
     output = {
         "solution": reduce(
             (lambda x, y: x if x < y else y),
-            map(lambda solution: solution.value, population)
+            allValues
         ),
-        "allValues": allValues
-        # TODO salvar todas as melhores soluções
+        "allValues": allValues,
+        "allBestValues": findBestValues(allValues)
     }
 
     return output
+
+
+def findBestValues(allValues):
+    allBestValues = []
+    currentBest = float("inf")
+    for value in allValues:
+        if value < currentBest:
+            currentBest = value
+        allBestValues.append(currentBest)
+
+    return allBestValues
 
 
 def chooseParents(population):
@@ -187,6 +194,3 @@ def chooseParents(population):
             parents.append(p2)
 
     return parents
-
-# testCooling(90, 100)
-# print()
