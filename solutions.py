@@ -84,17 +84,19 @@ def simulatedAnneling(problem):
 
     allValues = []
     allBestValues = []
+    bestValue = float("inf")
 
     while iterations < 1000:
         nextNeighbor = problem.getNextNeighbor(currentState)
         currentValue = problem.objectiveFunction(nextNeighbor)
         allValues.append(currentValue)
+        if currentValue < bestValue:
+            bestValue = currentValue
+        allBestValues.append(bestValue)
         if currentValue < solution.value:
             solution.value = currentValue
             solution.state = nextNeighbor
-            allBestValues.append(currentValue)
         else:
-            allBestValues.append(solution.value)
             if round(random.random(), 5) < temperature:
                 solution.value = currentValue
                 solution.state = nextNeighbor
@@ -104,7 +106,7 @@ def simulatedAnneling(problem):
         temperature = cooling(temperature, 900)
 
     output = {
-        "solution": solution.value,
+        "solution": bestValue,
         "allValues": allValues,
         "allBestValues": allBestValues
     }
