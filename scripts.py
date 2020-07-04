@@ -4,8 +4,7 @@ from solutions import hillClimbing, randomRestartHillClimbing, simulatedAnneling
 from report import generateComparisonTable, generateFitnessEvolutionChart, generateAlgorithmComparisonChart, generateAllValuesChart
 
 
-def runProblem1():
-    problem1 = Problem1()
+def solveProblem(problem):
     hillClimbingResults = []
     randomRestartHillClimbingResults = []
     simulatedAnnelingResults = []
@@ -16,10 +15,16 @@ def runProblem1():
     ]
 
     for execution in range(10):
-        hillClimbingResults.append(hillClimbing(problem1))
-        randomRestartHillClimbingResults.append(randomRestartHillClimbing(problem1))
-        simulatedAnnelingResults.append(simulatedAnneling(problem1))
-        geneticAlgorithmResults.append(geneticAlgorithm(problem1))
+        hillClimbingResults.append(hillClimbing(problem))
+        randomRestartHillClimbingResults.append(randomRestartHillClimbing(problem))
+        simulatedAnnelingResults.append(simulatedAnneling(problem))
+        geneticAlgorithmResults.append(geneticAlgorithm(problem))
+
+    # Comparison Table
+    generateComparisonTable(algorithmNames[0], hillClimbingResults)
+    generateComparisonTable(algorithmNames[1], randomRestartHillClimbingResults)
+    generateComparisonTable(algorithmNames[2], simulatedAnnelingResults)
+    generateComparisonTable(algorithmNames[3], geneticAlgorithmResults)
 
     # All Values Chart (Optional)
     generateAllValuesChart(algorithmNames[0], hillClimbingResults[0])
@@ -27,11 +32,6 @@ def runProblem1():
     generateAllValuesChart(algorithmNames[2], simulatedAnnelingResults[0])
     generateAllValuesChart(algorithmNames[3], geneticAlgorithmResults[0])
 
-    # Comparison Table
-    generateComparisonTable(algorithmNames[0], hillClimbingResults)
-    generateComparisonTable(algorithmNames[1], randomRestartHillClimbingResults)
-    generateComparisonTable(algorithmNames[2], simulatedAnnelingResults)
-    generateComparisonTable(algorithmNames[3], geneticAlgorithmResults)
 
     # Fitness Evolution Chart
     generateFitnessEvolutionChart(algorithmNames[0], hillClimbingResults)
@@ -45,35 +45,41 @@ def runProblem1():
         [hillClimbingResults, randomRestartHillClimbingResults, simulatedAnnelingResults, geneticAlgorithmResults]
     )
 
-runProblem1()
+
+def startProblem(userInput):
+    if userInput == "1":
+        return Problem1()
+
+    if userInput == "2":
+        return Problem2()
+
+    if userInput == "3":
+        return startProblem3()
+
+    return None
 
 
-def runProblem2():
-    problem2 = Problem2()
-    # hillClimbingOutput = hillClimbing(problem2)
-    # randomRestartHillClimbingOutput = randomRestartHillClimbing(problem2)
-    simulatedAnnelingOutput = simulatedAnneling(problem2)
-    # geneticAlgorithmOutput = geneticAlgorithm(problem2)
-
-    x = list(range(1, 1001))
-    y = simulatedAnnelingOutput.get("allValues")
-
-    # geneticAlgorithmOutput = geneticAlgorithm(problem2)
-    # x = list(range(1, 51))
-    # y = geneticAlgorithmOutput
-
-    plotChart(x, y)
-
-# runProblem2()
+def userInterface():
+    print("Which Problem would you like to solve?\n- 1\n- 2\n- 3")
+    userInput = input()
+    problem = startProblem(userInput)
+    if problem:
+        print("\nSure! I'll show you all the charts (images) and tables (prompt) of the Problem {problem}".format(
+            problem=userInput))
+        print("Once you close a chart the next one will be displayed, ok?\n")
+        solveProblem(problem)
+    else:
+        print("You have to choose a number man...")
 
 
-def runProblem3():
+def startProblem3():
     # citiesFile = open("tsp-example-5cities.txt")
-    citiesFile = open("tsp-example-10cities.txt")
+    # citiesFile = open("tsp-example-10cities.txt")
     # citiesFile = open("tsp-example-10cities-solution.txt")
-    # citiesFile = open("tsp-example-rwanda-1621cities.txt")
+    citiesFile = open("tsp-example-rwanda-1621cities.txt")
     cities = []
     lineNumber = 0
+
     for line in citiesFile:
         splittedText = line.strip().split()
         lineNumber += 1
@@ -84,22 +90,8 @@ def runProblem3():
         }
         cities.append(coordinates)
     citiesFile.close()
-    problem3 = Problem3(cities)
 
-    # hillClimbingOutput = hillClimbing(problem3)
-    # randomRestartHillClimbingOutput = randomRestartHillClimbing(problem3)
-    # simulatedAnnelingOutput = simulatedAnneling(problem3)
-    # geneticAlgorithmOutput = geneticAlgorithm(problem2)
-
-    # x = list(range(1, 1001))
-    # y = hillClimbingOutput.get("allBestValues")
-    # print(hillClimbingOutput.get("solution").value)
-
-    # geneticAlgorithmOutput = geneticAlgorithm(problem2)
-    # x = list(range(1, 51))
-    # y = geneticAlgorithmOutput
-
-    # plotChart(x, y)
+    return Problem3(cities)
 
 
-# runProblem3()
+userInterface()
