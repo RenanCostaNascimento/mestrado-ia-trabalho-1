@@ -2,6 +2,7 @@ import random
 import numpy as np
 from math import sin, pi, pow, cos, sqrt
 
+standardDeviation = 2.0
 
 class Problem1:
     def __init__(self):
@@ -12,7 +13,7 @@ class Problem1:
         return (pow(x, 2) / 100) + (10 * sin(x - (pi / 2)))
 
     def getNextNeighbor(self, currentState):
-        nextNeighbor = currentState + np.random.randn()
+        nextNeighbor = currentState + np.random.normal(0.0, standardDeviation)
         if nextNeighbor < self.interval[0] or nextNeighbor > self.interval[1]:
             return self.restart()
         else:
@@ -25,10 +26,10 @@ class Problem1:
         p1 = parents[0].state
         p2 = parents[1].state
 
-        alfa1 = np.random.normal(0.0, 0.1)
+        alfa1 = np.random.uniform(0.0, 1)
         state1 = (p1 * alfa1) + p2 * (1 - alfa1)
 
-        alfa2 = np.random.normal(0.0, 0.1)
+        alfa2 = np.random.uniform(0.0, 1)
         state2 = (p2 * alfa2) + p1 * (1 - alfa2)
 
         return [state1, state2]
@@ -52,11 +53,11 @@ class Problem2:
         return 20 + (pow(x, 2) - 10 * cos(2 * pi * x)) + (pow(y, 2) - 10 * cos(2 * pi * y))
 
     def getNextNeighbor(self, currentState):
-        nextNeighborX = currentState.get("x") + np.random.randn()
+        nextNeighborX = currentState.get("x") + np.random.normal(0.0, standardDeviation)
         if nextNeighborX < self.interval[0] or nextNeighborX > self.interval[1]:
             nextNeighborX = self.getRandomValidValue()
 
-        nextNeighborY = currentState.get("y") + np.random.randn()
+        nextNeighborY = currentState.get("y") + np.random.normal(0.0, standardDeviation)
         if nextNeighborY < self.interval[0] or nextNeighborY > self.interval[1]:
             nextNeighborY = self.getRandomValidValue()
 
@@ -80,13 +81,13 @@ class Problem2:
         x2 = parents[1].state.get("x")
         y2 = parents[1].state.get("y")
 
-        alfa1 = np.random.normal(0.0, 0.1)
+        alfa1 = np.random.uniform(0.0, 1)
         state1 = {
             "x": (x1 * alfa1) + x2 * (1 - alfa1),
             "y": (y1 * alfa1) + y2 * (1 - alfa1),
         }
 
-        alfa2 = np.random.normal(0.0, 0.1)
+        alfa2 = np.random.uniform(0.0, 1)
         state2 = {
             "x": (x2 * alfa2) + x1 * (1 - alfa2),
             "y": (y2 * alfa2) + y1 * (1 - alfa2),
