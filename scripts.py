@@ -1,7 +1,7 @@
 from charts import plotChart
 from problems import Problem1, Problem2, Problem3
 from solutions import hillClimbing, randomRestartHillClimbing, simulatedAnneling, geneticAlgorithm
-from report import generateComparisonTable
+from report import generateComparisonTable, generateFitnessEvolutionChart
 
 
 def runProblem1():
@@ -10,6 +10,10 @@ def runProblem1():
     randomRestartHillClimbingResults = []
     simulatedAnnelingResults = []
     geneticAlgorithmResults = []
+    algorithmNames = [
+        "Hill Climbing", "Random Restart Hill Climbing",
+        "Simulated Anneling", "Genetic Algorithm"
+    ]
 
     for execution in range(10):
         hillClimbingResults.append(hillClimbing(problem1))
@@ -17,16 +21,21 @@ def runProblem1():
         simulatedAnnelingResults.append(simulatedAnneling(problem1))
         geneticAlgorithmResults.append(geneticAlgorithm(problem1))
 
-    generateComparisonTable("Hill Climbing", hillClimbingResults)
-    generateComparisonTable("Random Restart Hill Climbing", randomRestartHillClimbingResults)
-    generateComparisonTable("Simulated Anneling", simulatedAnnelingResults)
-    generateComparisonTable("Genetic Algorithm", geneticAlgorithmResults)
+    # Comparison Table
+    generateComparisonTable(algorithmNames[0], hillClimbingResults)
+    generateComparisonTable(algorithmNames[1], randomRestartHillClimbingResults)
+    generateComparisonTable(algorithmNames[2], simulatedAnnelingResults)
+    generateComparisonTable(algorithmNames[3], geneticAlgorithmResults)
 
+    # Fitness Evolution Chart
+    generateFitnessEvolutionChart(algorithmNames[0], hillClimbingResults)
+    generateFitnessEvolutionChart(algorithmNames[1], randomRestartHillClimbingResults)
+    generateFitnessEvolutionChart(algorithmNames[2], simulatedAnnelingResults)
+    generateFitnessEvolutionChart(algorithmNames[3], geneticAlgorithmResults)
 
     # x = list(range(1, 1001))
     # y = hillClimbingOutput.get("allBestValues")
 
-    
     # x = list(range(1, 51))
     # y = geneticAlgorithmOutput.get("allValues")
 
