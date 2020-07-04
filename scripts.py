@@ -1,7 +1,7 @@
 from charts import plotChart
 from problems import Problem1, Problem2, Problem3
 from solutions import hillClimbing, randomRestartHillClimbing, simulatedAnneling, geneticAlgorithm
-from report import generateComparisonTable, generateFitnessEvolutionChart
+from report import generateComparisonTable, generateFitnessEvolutionChart, generateAlgorithmComparisonChart, generateAllValuesChart
 
 
 def runProblem1():
@@ -21,6 +21,12 @@ def runProblem1():
         simulatedAnnelingResults.append(simulatedAnneling(problem1))
         geneticAlgorithmResults.append(geneticAlgorithm(problem1))
 
+    # All Values Chart (Optional)
+    generateAllValuesChart(algorithmNames[0], hillClimbingResults[0])
+    generateAllValuesChart(algorithmNames[1], randomRestartHillClimbingResults[0])
+    generateAllValuesChart(algorithmNames[2], simulatedAnnelingResults[0])
+    generateAllValuesChart(algorithmNames[3], geneticAlgorithmResults[0])
+
     # Comparison Table
     generateComparisonTable(algorithmNames[0], hillClimbingResults)
     generateComparisonTable(algorithmNames[1], randomRestartHillClimbingResults)
@@ -33,17 +39,11 @@ def runProblem1():
     generateFitnessEvolutionChart(algorithmNames[2], simulatedAnnelingResults)
     generateFitnessEvolutionChart(algorithmNames[3], geneticAlgorithmResults)
 
-    # x = list(range(1, 1001))
-    # y = hillClimbingOutput.get("allBestValues")
-
-    # x = list(range(1, 51))
-    # y = geneticAlgorithmOutput.get("allValues")
-
-    # print("ALL", geneticAlgorithmOutput.get("allValues"))
-    # print("BEST", geneticAlgorithmOutput.get("solution"))
-
-    # plotChart(x, y)
-
+    # Algorithm Comparison Chart
+    generateAlgorithmComparisonChart(
+        algorithmNames,
+        [hillClimbingResults, randomRestartHillClimbingResults, simulatedAnnelingResults, geneticAlgorithmResults]
+    )
 
 runProblem1()
 
