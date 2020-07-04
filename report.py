@@ -48,3 +48,13 @@ def generateAlgorithmComparisonChart(algorithmNames, algorithmResults):
     }
 
     plotChart(yAxis, title, legend)
+
+
+def generateAllValuesChart(algorithm, result):
+    title = "All Values ({algorithm})".format(algorithm=algorithm)
+    legend = {
+        "title": "Result",
+        "labels": ["1º"]
+    }
+
+    plotChart([result.get("allValues")], title, legend)
