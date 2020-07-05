@@ -4,8 +4,7 @@ import matplotlib.pyplot as plt
 
 
 def plotChart(data, title, legend):
-    sns.set(style="whitegrid")
-
+    sns.set(style="darkgrid")
     dataset = {
         "xAxis": list(range(1, 1001))
     }
@@ -24,4 +23,20 @@ def plotChart(data, title, legend):
     plt.legend(title=legend["title"],
                loc='upper right', labels=legend["labels"])
 
+    plt.show()
+
+def plotComparisonChart(data, title, legend):
+    sns.set(style="darkgrid")
+    numCalls = range(1000)
+
+    for index in range(0, len(data)):
+        mean = data[index].get("mean")
+        std = data[index].get("std")
+        plt.plot(numCalls, mean)
+        plt.fill_between(numCalls, mean-std, mean+std, alpha=0.3)
+
+    axes = plt.gca()
+    axes.set_xlim([0, 1000])
+    plt.title(title)
+    plt.legend(legend.get("labels"))
     plt.show()

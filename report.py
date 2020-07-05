@@ -1,5 +1,5 @@
 import numpy as np
-from charts import plotChart
+from charts import plotChart, plotComparisonChart
 
 
 def generateComparisonTable(algorithm, results):
@@ -39,7 +39,10 @@ def generateAlgorithmComparisonChart(algorithmNames, algorithmResults):
         currentResults.clear()
         for result in algorithm:
             currentResults.append(result.get("allBestValues"))
-        yAxis.append(np.mean(currentResults, axis=0))
+        yAxis.append({
+            "mean": np.mean(currentResults, axis=0),
+            "std": np.std(currentResults, axis=0)
+        })
 
     title = "Algorithm Comparison (Mean)"
     legend = {
@@ -47,7 +50,7 @@ def generateAlgorithmComparisonChart(algorithmNames, algorithmResults):
         "labels": algorithmNames
     }
 
-    plotChart(yAxis, title, legend)
+    plotComparisonChart(yAxis, title, legend)
 
 
 def generateAllValuesChart(algorithm, result):
