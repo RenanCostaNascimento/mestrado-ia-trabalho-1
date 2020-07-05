@@ -29,8 +29,7 @@ def hillClimbing(problem):
         currentValue = problem.objectiveFunction(nextNeighbor)
         allValues.append(currentValue)
         if currentValue < solution.value:
-            solution.value = currentValue
-            solution.state = nextNeighbor
+            solution.setState(nextNeighbor)
             allBestValues.append(currentValue)
         else:
             allBestValues.append(solution.value)
@@ -60,8 +59,7 @@ def randomRestartHillClimbing(problem):
         currentValue = problem.objectiveFunction(nextNeighbor)
         allValues.append(currentValue)
         if currentValue < solution.value:
-            solution.value = currentValue
-            solution.state = nextNeighbor
+            solution.setState(nextNeighbor)
             allBestValues.append(currentValue)
         else:
             allBestValues.append(solution.value)
@@ -94,12 +92,10 @@ def simulatedAnneling(problem):
             bestValue = currentValue
         allBestValues.append(bestValue)
         if currentValue < solution.value:
-            solution.value = currentValue
-            solution.state = nextNeighbor
+            solution.setState(nextNeighbor)
         else:
             if round(random.random(), 5) < temperature:
-                solution.value = currentValue
-                solution.state = nextNeighbor
+                solution.setState(nextNeighbor)
 
         iterations += 1
         currentState = nextNeighbor
@@ -120,13 +116,6 @@ def cooling(currentTemperature, freezingTime):
         return 0
     else:
         return round(newTemperature, 5)
-
-
-def testCooling(freezingTime, iterations):
-    temperature = 1
-    for i in range(iterations):
-        temperature = cooling(temperature, freezingTime)
-        print(temperature)
 
 
 def geneticAlgorithm(problem):
