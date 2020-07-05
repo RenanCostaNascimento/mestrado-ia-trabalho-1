@@ -8,6 +8,18 @@ class Problem1:
     def __init__(self):
         self.interval = [-100, 100]
         self.mutationChance = 0.3
+        self.initialStates = [
+            -88.42356534,
+            -74.17652733,
+            -96.04533575,
+            -46.20975576,
+            -51.08525224,
+            84.25824009,
+            89.62662973,
+            62.71057724,
+            41.82046817,
+            74.48850765
+        ]
 
     def objectiveFunction(self, x):
         return (pow(x, 2) / 100) + (10 * sin(x - (pi / 2)))
@@ -21,6 +33,9 @@ class Problem1:
 
     def restart(self):
         return np.random.uniform(self.interval[0], self.interval[1])
+
+    def initialize(self, stateIndex):
+        return self.initialStates[stateIndex]
 
     def crossover(self, parents):
         p1 = parents[0].state
@@ -45,6 +60,18 @@ class Problem2:
     def __init__(self):
         self.interval = [-5.12, 5.12]
         self.mutationChance = 0.3
+        self.initialStates = [
+            {"x": 29.51654484170328, "y": 78.65440951124137},
+            {"x": 93.40606119162919, "y": 95.15017642984012},
+            {"x": 85.73574673864115, "y": 46.1873470887395},
+            {"x": 51.07598900888397, "y": 36.27029950966559},
+            {"x": 87.24782796076327, "y": 57.140204016780096},
+            {"x": -62.12861845683161, "y": -88.06454382247352},
+            {"x": -96.79646051293301, "y": -96.59722486438855},
+            {"x": -64.93822754620575, "y": -52.19933087484202},
+            {"x": -10.749449541608, "y": -16.58523200298534},
+            {"x": -70.53054054615664, "y": -98.1420602185348}
+        ]
 
     def objectiveFunction(self, value):
         x = value.get("x")
@@ -71,6 +98,9 @@ class Problem2:
             "x": self.getRandomValidValue(),
             "y": self.getRandomValidValue()
         }
+
+    def initialize(self, stateIndex):
+        return self.initialStates[stateIndex]
 
     def getRandomValidValue(self):
         return np.random.uniform(self.interval[0], self.interval[1])
@@ -133,7 +163,12 @@ class Problem3:
         return citiesCopy
 
     def restart(self):
-        return self.cities
+        citiesCopy = self.cities.copy()
+        random.shuffle(citiesCopy)
+        return citiesCopy
+
+    def initialize(self, stateIndex):
+        return self.cities.copy()
 
     def crossover(self, parents):
         parentSize = len(parents[0].state)

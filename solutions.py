@@ -4,22 +4,22 @@ from functools import reduce
 
 
 class Solution:
-    def __init__(self, problem, state=None):
-        self.state = state if state else problem.restart()
+    def __init__(self, problem, execution, state=None):
+        if state:
+            self.state = state
+        else:
+            self.state = problem.initialize(execution) if execution >= 0 else problem.restart()
         self.value = problem.objectiveFunction(self.state)
         self.problem = problem
-
-    def __str__(self):
-        return "State: %f, Value: %f" % (self.state, self.value)
 
     def setState(self, newState):
         self.state = newState
         self.value = self.problem.objectiveFunction(newState)
 
 
-def hillClimbing(problem):
+def hillClimbing(problem, execution):
     iterations = 0
-    solution = Solution(problem)
+    solution = Solution(problem, execution)
     currentState = solution.state
     allValues = []
     allBestValues = []
@@ -44,9 +44,9 @@ def hillClimbing(problem):
     return output
 
 
-def randomRestartHillClimbing(problem):
+def randomRestartHillClimbing(problem, execution):
     iterations = 0
-    solution = Solution(problem)
+    solution = Solution(problem, execution)
     currentState = solution.state
     allValues = []
     allBestValues = []
@@ -74,9 +74,9 @@ def randomRestartHillClimbing(problem):
     return output
 
 
-def simulatedAnneling(problem):
+def simulatedAnneling(problem, execution):
     iterations = 0
-    solution = Solution(problem)
+    solution = Solution(problem, execution)
     currentState = solution.state
     temperature = 1
 
@@ -118,15 +118,16 @@ def cooling(currentTemperature, freezingTime):
         return round(newTemperature, 5)
 
 
-def geneticAlgorithm(problem):
+def geneticAlgorithm(problem, execution):
     populationSize = 20
     generations = 50
     population = []
 
     allValues =[]
 
-    for individual in range(populationSize):
-        population.append(Solution(problem))
+    population.append(Solution(problem, execution))
+    for individual in range(populationSize - 1):
+        population.append(Solution(problem, -1))
 
     for generation in range(generations):
         currentPopulation = []
@@ -136,12 +137,12 @@ def geneticAlgorithm(problem):
             childrenStates = problem.crossover(parents)
             currentPopulation.append(
                 Solution(
-                    problem, problem.mutation(childrenStates[0])
+                    problem, execution, problem.mutation(childrenStates[0])
                 )
             )
             currentPopulation.append(
                 Solution(
-                    problem, problem.mutation(childrenStates[1])
+                    problem, execution, problem.mutation(childrenStates[1])
                 )
             )
 

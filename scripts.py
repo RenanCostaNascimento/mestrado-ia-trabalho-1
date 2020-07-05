@@ -15,10 +15,10 @@ def solveProblem(problem):
     ]
 
     for execution in range(10):
-        hillClimbingResults.append(hillClimbing(problem))
-        randomRestartHillClimbingResults.append(randomRestartHillClimbing(problem))
-        simulatedAnnelingResults.append(simulatedAnneling(problem))
-        geneticAlgorithmResults.append(geneticAlgorithm(problem))
+        hillClimbingResults.append(hillClimbing(problem, execution))
+        randomRestartHillClimbingResults.append(randomRestartHillClimbing(problem, execution))
+        simulatedAnnelingResults.append(simulatedAnneling(problem, execution))
+        geneticAlgorithmResults.append(geneticAlgorithm(problem, execution))
 
     # Comparison Table
     generateComparisonTable(algorithmNames[0], hillClimbingResults)
@@ -66,6 +66,7 @@ def userInterface():
         print("\nSure! I'll show you all the charts (images) and tables (prompt) of the Problem {problem}".format(
             problem=userInput))
         print("Once you close a chart the next one will be displayed, ok?\n")
+        print("This can take a minute, sit tight...\n")
         solveProblem(problem)
     else:
         print("You have to choose a number man...")
