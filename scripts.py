@@ -32,7 +32,6 @@ def solveProblem(problem):
     generateAllValuesChart(algorithmNames[2], simulatedAnnelingResults[0])
     generateAllValuesChart(algorithmNames[3], geneticAlgorithmResults[0])
 
-
     # Fitness Evolution Chart
     generateFitnessEvolutionChart(algorithmNames[0], hillClimbingResults)
     generateFitnessEvolutionChart(algorithmNames[1], randomRestartHillClimbingResults)
@@ -75,7 +74,6 @@ def userInterface():
 def startProblem3():
     # citiesFile = open("tsp-example-5cities.txt")
     # citiesFile = open("tsp-example-10cities.txt")
-    # citiesFile = open("tsp-example-10cities-solution.txt")
     citiesFile = open("tsp-example-rwanda-1621cities.txt")
     cities = []
     lineNumber = 0
