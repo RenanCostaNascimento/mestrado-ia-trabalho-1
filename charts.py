@@ -1,6 +1,7 @@
 import pandas as pd
 import seaborn as sns
 import matplotlib.pyplot as plt
+from matplotlib.animation import FuncAnimation
 
 
 def plotChart(data, title, legend):
@@ -25,6 +26,7 @@ def plotChart(data, title, legend):
 
     plt.show()
 
+
 def plotComparisonChart(data, title, legend):
     sns.set(style="darkgrid")
     numCalls = range(1000)
@@ -39,4 +41,28 @@ def plotComparisonChart(data, title, legend):
     axes.set_xlim([0, 1000])
     plt.title(title)
     plt.legend(legend.get("labels"))
+    plt.show()
+
+
+def plotAnimationChart(data, title, legend):
+    sns.set(style="darkgrid")
+    xAxis = []
+    yAxis = []
+
+
+    def animate(i):
+        if i < len(data[0]):
+            xAxis.append(i)
+            yAxis.append(data[0][i])
+
+            axes = plt.gca()
+            axes.set_xlim([0, 1000])
+            plt.cla()
+            plt.plot(xAxis, yAxis, label='Channel 1')
+            plt.title(title)
+
+            plt.legend(legend.get("labels"))
+            plt.tight_layout()
+
+    ani = FuncAnimation(plt.gcf(), animate, interval=1)
     plt.show()

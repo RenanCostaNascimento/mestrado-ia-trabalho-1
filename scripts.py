@@ -66,7 +66,8 @@ def userInterface():
         print("\nSure! I'll show you all the charts (images) and tables (prompt) of the Problem {problem}".format(
             problem=userInput))
         print("Once you close a chart the next one will be displayed, ok?\n")
-        print("This can take a minute, sit tight...\n")
+        if userInput == "3":
+            print("This can take a minute, sit tight...\n")
         solveProblem(problem)
     else:
         print("You have to choose a number man...")

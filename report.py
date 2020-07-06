@@ -1,5 +1,5 @@
 import numpy as np
-from charts import plotChart, plotComparisonChart
+from charts import plotChart, plotComparisonChart, plotAnimationChart
 
 
 def generateComparisonTable(algorithm, results):
@@ -60,4 +60,4 @@ def generateAllValuesChart(algorithm, result):
         "labels": ["1º"]
     }
 
-    plotChart([result.get("allValues")], title, legend)
+    plotAnimationChart([result.get("allValues")], title, legend)
