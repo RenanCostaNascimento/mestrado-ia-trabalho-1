@@ -76,7 +76,8 @@ def userInterface():
 def startProblem3():
     # citiesFile = open("tsp-example-5cities.txt")
     # citiesFile = open("tsp-example-10cities.txt")
-    citiesFile = open("tsp-example-rwanda-1621cities.txt")
+    # citiesFile = open("tsp-example-10cities-solution.txt")
+    citiesFile = open("tsp-example-38cities.txt")
     cities = []
     lineNumber = 0
 
