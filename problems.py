@@ -168,7 +168,11 @@ class Problem3:
         return citiesCopy
 
     def initialize(self, stateIndex):
-        return self.cities.copy()
+        seedForRerandomization = np.random.randint(0, 1e6)
+        np.random.seed(1)
+        initialSolution = np.random.permutation(self.cities.copy())
+        np.random.seed(seedForRerandomization)
+        return list(initialSolution)
 
     def crossover(self, parents):
         parentSize = len(parents[0].state)
