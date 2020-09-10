@@ -50,7 +50,7 @@ class Problem1:
         return [state1, state2]
 
     def mutation(self, child):
-        if random.random() > self.mutationChance:
+        if random.random() <= self.mutationChance:
             return self.getNextNeighbor(child)
 
         return child
@@ -126,7 +126,7 @@ class Problem2:
         return [state1, state2]
 
     def mutation(self, child):
-        if random.random() > self.mutationChance:
+        if random.random() <= self.mutationChance:
             return self.getNextNeighbor(child)
 
         return child
@@ -190,7 +190,7 @@ class Problem3:
         return [genes2 + genes1, genes1 + genes2]
 
     def mutation(self, child):
-        if random.random() > self.mutationChance:
+        if random.random() <= self.mutationChance:
             return self.getNextNeighbor(child)
 
         return child
