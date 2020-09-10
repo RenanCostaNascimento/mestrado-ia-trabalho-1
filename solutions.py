@@ -31,10 +31,10 @@ def hillClimbing(problem, execution):
         if currentValue < solution.value:
             solution.setState(nextNeighbor)
             allBestValues.append(currentValue)
+            currentState = nextNeighbor
         else:
             allBestValues.append(solution.value)
         iterations += 1
-        currentState = nextNeighbor
 
     output = {
         "solution": solution.value,
@@ -61,10 +61,10 @@ def randomRestartHillClimbing(problem, execution):
         if currentValue < solution.value:
             solution.setState(nextNeighbor)
             allBestValues.append(currentValue)
+            currentState = nextNeighbor
         else:
             allBestValues.append(solution.value)
         iterations += 1
-        currentState = nextNeighbor
 
     output = {
         "solution": solution.value,
@@ -93,12 +93,13 @@ def simulatedAnneling(problem, execution):
         allBestValues.append(bestValue)
         if currentValue < solution.value:
             solution.setState(nextNeighbor)
+            currentState = nextNeighbor
         else:
             if round(random.random(), 5) < temperature:
                 solution.setState(nextNeighbor)
+                currentState = nextNeighbor
 
         iterations += 1
-        currentState = nextNeighbor
         temperature = cooling(temperature, 900)
 
     output = {
