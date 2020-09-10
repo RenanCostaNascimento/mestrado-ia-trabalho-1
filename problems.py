@@ -175,19 +175,24 @@ class Problem3:
         return list(initialSolution)
 
     def crossover(self, parents):
-        parentSize = len(parents[0].state)
-        cutPoint = random.randint(1, parentSize - 2)
+        cutPoint = random.randint(1, len(parents[0].state) - 2)
+        child1 = self.generateChild(cutPoint, parents[0], parents[1])
+        child2 = self.generateChild(cutPoint, parents[1], parents[0])
 
-        genes1 = parents[0].state[cutPoint:parentSize]
+        return [child1, child2]
+
+    def generateChild(self, cutPoint, parent1, parent2):
+        parentSize = len(parent1.state)
+        genes1 = parent1.state[cutPoint:parentSize]
         genes2 = []
         index = 0
         sizeGenes2 = parentSize - len(genes1)
         while len(genes2) != sizeGenes2:
-            if parents[1].state[index] not in genes1:
-                genes2.append(parents[1].state[index])
+            if parent2.state[index] not in genes1:
+                genes2.append(parent2.state[index])
             index += 1
 
-        return [genes2 + genes1, genes1 + genes2]
+        return genes2 + genes1
 
     def mutation(self, child):
         if random.random() <= self.mutationChance:
